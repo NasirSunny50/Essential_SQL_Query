@@ -437,11 +437,30 @@ Inner Join Operation
 
 
 Inner join for 3 tables
---SELECT customers.CustomerID, orders.OrderID, customers.CustomerName, orders.OrderDate, shippers.ShipperName
---FROM [testDB].[dbo].[orders]
---INNER JOIN [testDB].[dbo].[customers] ON orders.CustomerID = customers.CustomerID
+SELECT customers.CustomerID, orders.OrderID, customers.CustomerName, orders.OrderDate, shippers.ShipperName
+FROM [testDB].[dbo].[orders]
+INNER JOIN [testDB].[dbo].[customers] ON orders.CustomerID = customers.CustomerID
 --INNER JOIN [testDB].[dbo].[shippers] ON orders.ShipperID = shippers.ShipperID
---ORDER BY CustomerID ASC
+ORDER BY CustomerID ASC
+
+
+
+left join
+--SELECT customers.CustomerID, customers.CustomerName, orders.OrderDate
+--FROM [testDB].[dbo].[customers]
+--LEFT JOIN [testDB].[dbo].[orders] ON customers.CustomerID = orders.CustomerID
+
+
+
+find how many orders created by a customer
+formula 1
+--SELECT C.*,ISNULL(O.TotalOrder,0) AS TotalOrder FROM customers C
+--LEFT JOIN (
+--SELECT CustomerID,COUNT(ORDERID) AS TotalOrder FROM orders
+--GROUP BY CustomerID) O ON C.CustomerID=O.CustomerID
+
+formula 2
+--SELECT *, (SELECT COUNT(ORDERID) FROM orders WHERE CustomerID=C.CustomerID)  AS TotalOrder FROM customers C
 
 
 
